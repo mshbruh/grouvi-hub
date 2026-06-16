@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 const dockItems = [
@@ -70,7 +68,7 @@ const dockItems = [
 
 export default function Dock() {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-0.5 bg-g-bg/80 backdrop-blur-xl border border-g-border rounded-[14px] px-2.5 py-1.5">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-0.5 bg-g-bg/80 backdrop-blur-xl border border-g-border rounded-[14px] px-2.5 py-1.5">
       {dockItems.map((item, i) =>
         item.label === "sep" ? (
           <div key={i} className="w-px h-6 bg-g-border2 mx-1.5" />

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { MODULE_REGISTRY, ModuleDef } from "@/lib/window-registry";
 
@@ -8,7 +6,6 @@ interface ModuleSelectorProps {
   usedModules: string[];
 }
 
-// SVG icons for modules (no emojis)
 const MODULE_ICONS: Record<string, React.ReactNode> = {
   mail: (
     <svg viewBox="0 0 24 24">
@@ -18,7 +15,10 @@ const MODULE_ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function ModuleSelector({ onSelect, usedModules }: ModuleSelectorProps) {
+export default function ModuleSelector({
+  onSelect,
+  usedModules,
+}: ModuleSelectorProps) {
   return (
     <div className="p-5 h-full flex flex-col items-center justify-center">
       <div className="ic-lg text-g-text3 mb-4">
@@ -28,7 +28,9 @@ export default function ModuleSelector({ onSelect, usedModules }: ModuleSelector
           <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
       </div>
-      <div className="text-sm text-g-text2 font-medium mb-1">Выберите модуль</div>
+      <div className="text-sm text-g-text2 font-medium mb-1">
+        Выберите модуль
+      </div>
       <div className="text-[11px] text-g-text3 mb-6">для этого окна</div>
 
       <div className="w-full max-w-[320px] space-y-2">

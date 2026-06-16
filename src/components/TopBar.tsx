@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 interface TopBarProps {
@@ -9,7 +7,10 @@ interface TopBarProps {
 
 export default function TopBar({ onAddWindow, windowCount }: TopBarProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 h-11 bg-g-bg/80 backdrop-blur-xl border-b border-g-border">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 h-11 bg-g-bg/80 backdrop-blur-xl border-b border-g-border"
+      data-tauri-drag-region
+    >
       {/* Left */}
       <div className="flex items-center gap-6">
         <span className="flex items-center gap-2 text-sm font-semibold text-g-accent tracking-tight">
@@ -33,7 +34,12 @@ export default function TopBar({ onAddWindow, windowCount }: TopBarProps) {
       <div className="flex items-center gap-3">
         {windowCount > 0 && (
           <span className="text-[11px] font-mono text-g-text3">
-            {windowCount} {windowCount === 1 ? "окно" : windowCount < 5 ? "окна" : "окон"}
+            {windowCount}{" "}
+            {windowCount === 1
+              ? "окно"
+              : windowCount < 5
+              ? "окна"
+              : "окон"}
           </span>
         )}
         <button

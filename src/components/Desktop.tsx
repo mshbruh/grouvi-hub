@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useCallback, useMemo } from "react";
 import { Responsive, WidthProvider, Layout } from "react-grid-layout";
 import TopBar from "./TopBar";
@@ -8,7 +6,6 @@ import Window from "./Window";
 import ModuleSelector from "./ModuleSelector";
 import { MODULE_REGISTRY, ModuleDef } from "@/lib/window-registry";
 
-// Module components — only mail for now
 import MailModule from "./modules/MailModule";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -19,7 +16,7 @@ const MODULE_MAP: Record<string, React.FC> = {
 
 interface WindowState {
   uid: string;
-  moduleId: string | null; // null = selecting module
+  moduleId: string | null;
   title: string;
   badge: string;
 }
@@ -35,7 +32,8 @@ export default function Desktop() {
   });
 
   const usedModules = useMemo(
-    () => windows.filter((w) => w.moduleId).map((w) => w.moduleId as string),
+    () =>
+      windows.filter((w) => w.moduleId).map((w) => w.moduleId as string),
     [windows]
   );
 
@@ -64,7 +62,9 @@ export default function Desktop() {
 
   const closeWindow = useCallback((uid: string) => {
     setWindows((prev) =>
-      prev.map((w) => (w.uid === uid ? { ...w, badge: "closing" } : w))
+      prev.map((w) =>
+        w.uid === uid ? { ...w, badge: "closing" } : w
+      )
     );
     setTimeout(() => {
       setWindows((prev) => prev.filter((w) => w.uid !== uid));
@@ -97,14 +97,17 @@ export default function Desktop() {
   }, []);
 
   const onLayoutChange = useCallback(
-    (_currentLayout: Layout[], allLayouts: { [key: string]: Layout[] }) => {
+    (
+      _currentLayout: Layout[],
+      allLayouts: { [key: string]: Layout[] }
+    ) => {
       setLayouts(allLayouts);
     },
     []
   );
 
   return (
-    <div className="desktop-bg min-h-screen relative">
+    <div className="desktop-bg min-h-screen relative select-none">
       {/* Subtle dot grid */}
       <div
         className="fixed inset-0 pointer-events-none z-0"
@@ -131,14 +134,13 @@ export default function Desktop() {
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
               </svg>
             </div>
-            <div className="text-sm text-g-text3 mb-1">Рабочий стол пуст</div>
+            <div className="text-sm text-g-text3 mb-1">
+              Рабочий стол пуст
+            </div>
             <div className="text-[12px] text-g-text3/60 mb-6">
               Нажмите «+ Окно» чтобы добавить модуль
             </div>
-            <button
-              onClick={addWindow}
-              className="btn-primary"
-            >
+            <button onClick={addWindow} className="btn-primary">
               <span className="ic-sm">
                 <svg viewBox="0 0 24 24">
                   <line x1="12" y1="5" x2="12" y2="19" />
@@ -172,7 +174,9 @@ export default function Desktop() {
                 <div key={win.uid}>
                   <Window
                     title={win.title}
-                    badge={win.badge === "closing" ? undefined : win.badge}
+                    badge={
+                      win.badge === "closing" ? undefined : win.badge
+                    }
                     onClose={() => closeWindow(win.uid)}
                     closing={win.badge === "closing"}
                   >
