@@ -14,4 +14,11 @@ export const MODULE_REGISTRY: ModuleDef[] = [
     category: "tools",
     component: "mail",
   },
+  {
+    id: "ai-chat",
+    title: "AI Chat",
+    description: "Чат с нейросетями через OmniRoute или OpenAI API",
+    category: "tools",
+    component: "ai-chat",
+  },
 ];

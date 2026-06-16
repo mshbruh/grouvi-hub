@@ -7,11 +7,13 @@ import ModuleSelector from "./ModuleSelector";
 import { MODULE_REGISTRY, ModuleDef } from "@/lib/window-registry";
 
 import MailModule from "./modules/MailModule";
+import AiChatModule from "./modules/AiChatModule";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const MODULE_MAP: Record<string, React.FC> = {
   mail: MailModule,
+  "ai-chat": AiChatModule,
 };
 
 interface WindowState {
