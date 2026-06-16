@@ -66,7 +66,7 @@ export default function MailModule() {
   const [loading, setLoading] = useState(false);
   const [selectedMail, setSelectedMail] = useState<MailMessage | null>(null);
 
-  const pollRef = useRef<NodeJS.Timeout | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastCountRef = useRef(0);
 
   /* ── load domains on mount ── */
