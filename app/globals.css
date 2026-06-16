@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── React Grid Layout ── */
+.react-grid-layout {
+  position: relative;
+  transition: height 200ms ease;
+}
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top, width, height;
+}
+.react-grid-item.cssTransforms {
+  transition-property: transform, width, height;
+}
+.react-grid-item.resizing {
+  transition: none;
+  z-index: 1;
+  will-change: width, height;
+}
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 3;
+  will-change: transform;
+}
+.react-grid-placeholder {
+  background: rgba(244, 237, 228, 0.06);
+  border: 1.5px dashed rgba(244, 237, 228, 0.15);
+  border-radius: 10px;
+  opacity: 1;
+  transition-duration: 100ms;
+  z-index: 2;
+}
+.react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+  z-index: 10;
+}
+.react-grid-item > .react-resizable-handle::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(244, 237, 228, 0.2);
+  border-bottom: 2px solid rgba(244, 237, 228, 0.2);
+  border-radius: 0 0 2px 0;
+  transition: border-color 0.15s;
+}
+.react-grid-item:hover > .react-resizable-handle::after {
+  border-color: rgba(244, 237, 228, 0.45);
+}
+
+/* ── Desktop Background ── */
+.desktop-bg {
+  background: #111111;
+  min-height: 100vh;
+}
+
+/* ── Window Appear Animation (Sticky Notes cascade) ── */
+@keyframes windowPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.75) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(-4px);
+  }
+  80% {
+    transform: scale(0.98) translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.window-appear {
+  animation: windowPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Window close ── */
+@keyframes windowClose {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(15px);
+  }
+}
+
+.window-close {
+  animation: windowClose 0.25s ease-in forwards;
+  pointer-events: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 237, 228, 0.12);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(244, 237, 228, 0.25); }
+
+/* ── SVG Icon system (matches temp.grouvi.online) ── */
+.ic svg,
+.ic-sm svg,
+.ic-lg svg,
+.ic-xl svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ic svg {
+  width: 18px;
+  height: 18px;
+}
+.ic-sm svg {
+  width: 15px;
+  height: 15px;
+}
+.ic-lg svg {
+  width: 22px;
+  height: 22px;
+}
+.ic-xl svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 1.4;
+}
+
+/* ── Buttons (matches temp.grouvi.online) ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #F4EDE4;
+  border: 1.5px solid #F4EDE4;
+  border-radius: 8px;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-family: inherit;
+}
+.btn-primary svg {
+  stroke: #111111;
+}
+.btn-primary:hover { background: #e8e1d8; border-color: #e8e1d8; }
+.btn-primary:active { background: #d9d2c9; border-color: #d9d2c9; }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-icon {
+  padding: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #666;
+  cursor: pointer;
+  transition: 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-icon:hover {
+  color: #e5e5e5;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #222;
+}
+.btn-icon:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Module selector hover ── */
+.module-card {
+  transition: all 0.2s ease;
+}
+.module-card:hover {
+  background: rgba(244, 237, 228, 0.06);
+  border-color: rgba(244, 237, 228, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ── Empty desktop pulse ── */
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+.empty-hint {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+/* ── Mail body sanitization ── */
+.mail-body img { max-width: 100%; height: auto; border-radius: 4px; }
+.mail-body a { color: #3b82f6; text-decoration: underline; }
+.mail-body a:hover { color: #60a5fa; }
+.mail-body table { font-size: 13px; }
+.mail-body * { max-width: 100% !important; }
+
+/* ── Spinner ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
