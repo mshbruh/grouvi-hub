@@ -284,10 +284,10 @@ export default function AgentModule() {
   return (
     <div className="flex flex-col h-full bg-[var(--g-bg)]" style={{ minHeight: 0 }}>
       {/* Header */}
-      <div className="flex items-center gap-2 px-3 py-2 border-b g-border2 shrink-0">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-g-border2 shrink-0">
         <BotIcon />
-        <span className="g-text font-semibold text-sm">Agent</span>
-        <span className="g-text3 text-xs ml-1 truncate" style={{ maxWidth: 200 }}>
+        <span className="text-g-text font-semibold text-sm">Agent</span>
+        <span className="text-g-text3 text-xs ml-1 truncate" style={{ maxWidth: 200 }}>
           {cfg.model}
         </span>
         <div className="flex-1" />
@@ -301,31 +301,31 @@ export default function AgentModule() {
 
       {/* Settings panel */}
       {showSettings && (
-        <div className="px-3 py-2 border-b g-border2 space-y-2 shrink-0" style={{ background: "rgba(255,255,255,0.02)" }}>
+        <div className="px-3 py-2 border-b border-g-border2 space-y-2 shrink-0" style={{ background: "rgba(255,255,255,0.02)" }}>
           <div>
-            <label className="g-text3 text-xs block mb-1">API URL</label>
+            <label className="text-g-text3 text-xs block mb-1">API URL</label>
             <input
-              className="w-full rounded-g px-2 py-1 text-xs g-text g-panel2 border g-border outline-none focus:border-[var(--g-accent)]"
+              className="w-full rounded-g px-2 py-1.5 text-xs text-g-text bg-transparent border border-g-border2 outline-none focus:border-g-accent/40 placeholder:text-g-text3/40 transition-colors"
               value={cfg.apiUrl}
               onChange={(e) => setCfg((s) => ({ ...s, apiUrl: e.target.value }))}
               placeholder="https://ai.grouvi.online"
             />
           </div>
           <div>
-            <label className="g-text3 text-xs block mb-1">API Key</label>
+            <label className="text-g-text3 text-xs block mb-1">API Key</label>
             <input
               type="password"
-              className="w-full rounded-g px-2 py-1 text-xs g-text g-panel2 border g-border outline-none focus:border-[var(--g-accent)]"
+              className="w-full rounded-g px-2 py-1.5 text-xs text-g-text bg-transparent border border-g-border2 outline-none focus:border-g-accent/40 placeholder:text-g-text3/40 transition-colors"
               value={cfg.apiKey}
               onChange={(e) => setCfg((s) => ({ ...s, apiKey: e.target.value }))}
               placeholder="sk-..."
             />
           </div>
           <div>
-            <label className="g-text3 text-xs block mb-1">Модель</label>
+            <label className="text-g-text3 text-xs block mb-1">Модель</label>
             {models.length > 0 ? (
               <select
-                className="w-full rounded-g px-2 py-1 text-xs g-text g-panel2 border g-border outline-none"
+                className="w-full rounded-g px-2 py-1.5 text-xs text-g-text bg-g-panel2 border border-g-border2 outline-none cursor-pointer"
                 value={cfg.model}
                 onChange={(e) => setCfg((s) => ({ ...s, model: e.target.value }))}
               >
@@ -337,14 +337,14 @@ export default function AgentModule() {
               </select>
             ) : (
               <input
-                className="w-full rounded-g px-2 py-1 text-xs g-text g-panel2 border g-border outline-none focus:border-[var(--g-accent)]"
+                className="w-full rounded-g px-2 py-1.5 text-xs text-g-text bg-transparent border border-g-border2 outline-none focus:border-g-accent/40 placeholder:text-g-text3/40 transition-colors"
                 value={cfg.model}
                 onChange={(e) => setCfg((s) => ({ ...s, model: e.target.value }))}
                 placeholder="kr/claude-sonnet-4.5"
               />
             )}
             {!modelsLoading && models.length === 0 && cfg.apiKey && (
-              <button onClick={fetchModels} className="text-xs g-accent mt-1 hover:underline">
+              <button onClick={fetchModels} className="text-xs text-g-accent mt-1 hover:underline">
                 Загрузить список моделей
               </button>
             )}
@@ -355,7 +355,7 @@ export default function AgentModule() {
       {/* Chat area */}
       <div ref={chatRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-3" style={{ minHeight: 0 }}>
         {bubbles.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full g-text3 text-sm gap-2 select-none">
+          <div className="flex flex-col items-center justify-center h-full text-g-text3 text-sm gap-2 select-none">
             <BotIcon />
             <span>Grouvi Agent</span>
             <span className="text-xs max-w-[260px] text-center" style={{ lineHeight: 1.5 }}>
@@ -368,7 +368,7 @@ export default function AgentModule() {
           if (b.role === "user") {
             return (
               <div key={b.id} className="flex justify-end">
-                <div className="max-w-[85%] rounded-g px-3 py-2 text-sm g-text" style={{ background: "rgba(99,102,241,0.15)" }}>
+                <div className="max-w-[85%] rounded-g px-3 py-2 text-sm text-g-text" style={{ background: "rgba(99,102,241,0.15)" }}>
                   <pre className="whitespace-pre-wrap font-sans m-0">{b.text}</pre>
                 </div>
               </div>
@@ -383,7 +383,7 @@ export default function AgentModule() {
               <div className="shrink-0 mt-1 w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "rgba(99,102,241,0.2)" }}>
                 <BotIcon />
               </div>
-              <div className="max-w-[85%] rounded-g px-3 py-2 text-sm g-text g-panel2">
+              <div className="max-w-[85%] rounded-g px-3 py-2 text-sm text-g-text bg-g-panel2">
                 <pre className="whitespace-pre-wrap font-sans m-0">{b.text}</pre>
               </div>
             </div>
@@ -391,7 +391,7 @@ export default function AgentModule() {
         })}
 
         {streaming && (
-          <div className="flex gap-2 items-center g-text3 text-xs">
+          <div className="flex gap-2 items-center text-g-text3 text-xs">
             <span className="inline-block w-2 h-2 rounded-full bg-[var(--g-accent)] animate-pulse" />
             думаю...
           </div>
@@ -399,11 +399,11 @@ export default function AgentModule() {
       </div>
 
       {/* Input */}
-      <div className="shrink-0 border-t g-border2 px-3 py-2">
+      <div className="shrink-0 border-t border-g-border2 px-3 py-2">
         <div className="flex gap-2 items-end">
           <textarea
             ref={inputRef}
-            className="flex-1 rounded-g px-3 py-2 text-sm g-text g-panel2 border g-border outline-none resize-none focus:border-[var(--g-accent)]"
+            className="flex-1 rounded-g px-3 py-2.5 text-sm text-g-text bg-transparent border border-g-border2 outline-none resize-none focus:border-g-accent/40 placeholder:text-g-text3/40 transition-colors"
             rows={1}
             value={input}
             onChange={(e) => {
@@ -448,32 +448,32 @@ function ToolBubble({ name, args, result }: { name: string; args: string; result
   } catch { resultPreview = result.slice(0, 60); }
 
   return (
-    <div className="mx-2 rounded-g border g-border overflow-hidden" style={{ background: "rgba(255,255,255,0.02)" }}>
+    <div className="mx-2 rounded-g border border-g-border overflow-hidden" style={{ background: "rgba(255,255,255,0.02)" }}>
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs hover:bg-white/5 transition-colors"
       >
         <ChevronIcon open={open} />
         <ToolIcon />
-        <span className="g-text font-medium">{name}</span>
+        <span className="text-g-text font-medium">{name}</span>
         <span className="flex-1" />
         {isLoading ? (
           <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
         ) : (
-          <span className={`truncate max-w-[180px] ${isError ? "text-red-400" : "g-text3"}`}>
+          <span className={`truncate max-w-[180px] ${isError ? "text-red-400" : "text-g-text3"}`}>
             {resultPreview}
           </span>
         )}
       </button>
       {open && (
-        <div className="px-3 py-2 border-t g-border text-xs space-y-1">
+        <div className="px-3 py-2 border-t border-g-border text-xs space-y-1">
           <div>
-            <span className="g-text3">args:</span>
-            <pre className="g-code text-xs mt-0.5 p-1.5 rounded g-panel2 overflow-x-auto">{args}</pre>
+            <span className="text-g-text3">args:</span>
+            <pre className="font-mono text-g-code text-xs mt-0.5 p-1.5 rounded bg-g-panel2 overflow-x-auto">{args}</pre>
           </div>
           <div>
-            <span className="g-text3">result:</span>
-            <pre className="g-code text-xs mt-0.5 p-1.5 rounded g-panel2 overflow-x-auto max-h-[200px] overflow-y-auto">
+            <span className="text-g-text3">result:</span>
+            <pre className="font-mono text-g-code text-xs mt-0.5 p-1.5 rounded bg-g-panel2 overflow-x-auto max-h-[200px] overflow-y-auto">
               {isLoading ? "выполняется..." : result}
             </pre>
           </div>
