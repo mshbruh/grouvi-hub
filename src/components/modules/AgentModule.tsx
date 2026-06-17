@@ -24,8 +24,8 @@ interface ChatBubble {
 
 /* ── Consts ── */
 const STORAGE_KEY = "grouvi_agent";
-const DEFAULT_API = "https://ai.grouvi.online";
-const DEFAULT_MODEL = "kr/claude-sonnet-4.5";
+const DEFAULT_API = "";
+const DEFAULT_MODEL = "llm7/gpt-4.1-nano";
 const MAX_TOOL_ROUNDS = 8;
 
 const SYSTEM_PROMPT = `Ты — Grouvi Agent, AI-ассистент встроенный в Grouvi Hub. Ты можешь выполнять действия на рабочем столе и управлять сервером.
@@ -343,7 +343,7 @@ export default function AgentModule() {
                 className="w-full rounded-g px-2 py-1.5 text-xs text-g-text bg-transparent border border-g-border2 outline-none focus:border-g-accent/40 placeholder:text-g-text3/40 transition-colors"
                 value={cfg.model}
                 onChange={(e) => setCfg((s) => ({ ...s, model: e.target.value }))}
-                placeholder="kr/claude-sonnet-4.5"
+                placeholder="llm7/gpt-4.1-nano"
               />
             )}
             {!modelsLoading && models.length === 0 && cfg.apiKey && (
