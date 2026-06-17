@@ -21,4 +21,25 @@ export const MODULE_REGISTRY: ModuleDef[] = [
     category: "tools",
     component: "ai-chat",
   },
+  {
+    id: "cards",
+    title: "Временные карты",
+    description: "CC генератор, BIN чекер, проверка Live, Hot BINs",
+    category: "tools",
+    component: "cards",
+  },
+  {
+    id: "notes",
+    title: "Заметки",
+    description: "Локальный блокнот с поиском, цветами и экспортом",
+    category: "productivity",
+    component: "notes",
+  },
+  {
+    id: "agent",
+    title: "Agent",
+    description: "AI-ассистент с доступом к инструментам рабочего стола",
+    category: "ai",
+    component: "agent",
+  },
 ];

@@ -8,12 +8,18 @@ import { MODULE_REGISTRY, ModuleDef } from "@/lib/window-registry";
 
 import MailModule from "./modules/MailModule";
 import AiChatModule from "./modules/AiChatModule";
+import CardModule from "./modules/CardModule";
+import NotesModule from "./modules/NotesModule";
+import AgentModule from "./modules/AgentModule";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const MODULE_MAP: Record<string, React.FC> = {
   mail: MailModule,
   "ai-chat": AiChatModule,
+  "cards": CardModule,
+  "notes": NotesModule,
+  "agent": AgentModule,
 };
 
 interface WindowState {

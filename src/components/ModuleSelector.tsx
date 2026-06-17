@@ -13,6 +13,27 @@ const MODULE_ICONS: Record<string, React.ReactNode> = {
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
   ),
+  cards: (
+    <svg viewBox="0 0 24 24">
+      <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+      <line x1="1" y1="10" x2="23" y2="10" />
+    </svg>
+  ),
+  notes: (
+    <svg viewBox="0 0 24 24">
+      <path d="M12 20h9" />
+      <path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" />
+    </svg>
+  ),
+  agent: (
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="10" rx="2" />
+      <circle cx="12" cy="5" r="2" />
+      <line x1="12" y1="7" x2="12" y2="11" />
+      <circle cx="9" cy="16" r="1" />
+      <circle cx="15" cy="16" r="1" />
+    </svg>
+  ),
 };
 
 export default function ModuleSelector({
