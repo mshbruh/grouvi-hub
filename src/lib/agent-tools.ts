@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════
    Grouvi Agent — Tool Definitions & Executors v2
    Phase 1: Notes, Cards, Email, Web
-   Phase 2: OmniRoute management, Server/SSH
+   Phase 2: OmniRoute management, SSH to user's VPS
    ═══════════════════════════════════════════════════ */
 
 // Backend API base (proxied through nginx)
@@ -270,18 +270,39 @@ export const TOOLS = [
     },
   },
 
-  // ── Phase 2: Server Management ──
+  // ── Phase 2: SSH (user provides credentials) ──
   {
     type: "function" as const,
     function: {
-      name: "server_exec",
+      name: "ssh_connect",
       description:
-        "Выполнить shell-команду на сервере. Возвращает stdout, stderr, exitCode. Используй для управления сервером, Docker, системой.",
+        "Подключиться к VPS пользователя. Пользователь должен дать host, username и password. Возвращает hostname и подтверждение подключения.",
+      parameters: {
+        type: "object",
+        properties: {
+          host: { type: "string", description: "IP-адрес или домен сервера" },
+          username: { type: "string", description: "Имя пользователя (по умолчанию root)" },
+          password: { type: "string", description: "Пароль SSH" },
+          port: { type: "number", description: "Порт SSH (по умолчанию 22)" },
+        },
+        required: ["host", "password"],
+      },
+    },
+  },
+  {
+    type: "function" as const,
+    function: {
+      name: "ssh_exec",
+      description:
+        "Выполнить shell-команду на VPS пользователя. Требует предварительного ssh_connect или передачи creds.",
       parameters: {
         type: "object",
         properties: {
           command: { type: "string", description: "Команда для выполнения" },
-          timeout: { type: "number", description: "Таймаут в мс (по умолчанию 15000)" },
+          host: { type: "string", description: "IP сервера (если не было ssh_connect)" },
+          username: { type: "string", description: "Логин" },
+          password: { type: "string", description: "Пароль" },
+          port: { type: "number", description: "Порт (по умолчанию 22)" },
         },
         required: ["command"],
       },
@@ -290,12 +311,15 @@ export const TOOLS = [
   {
     type: "function" as const,
     function: {
-      name: "server_file_read",
-      description: "Прочитать файл на сервере.",
+      name: "ssh_file_read",
+      description: "Прочитать файл на VPS пользователя по SSH.",
       parameters: {
         type: "object",
         properties: {
           path: { type: "string", description: "Полный путь к файлу" },
+          host: { type: "string", description: "IP сервера" },
+          username: { type: "string", description: "Логин" },
+          password: { type: "string", description: "Пароль" },
         },
         required: ["path"],
       },
@@ -304,13 +328,16 @@ export const TOOLS = [
   {
     type: "function" as const,
     function: {
-      name: "server_file_write",
-      description: "Записать файл на сервере.",
+      name: "ssh_file_write",
+      description: "Записать файл на VPS пользователя по SSH.",
       parameters: {
         type: "object",
         properties: {
           path: { type: "string", description: "Полный путь к файлу" },
           content: { type: "string", description: "Содержимое файла" },
+          host: { type: "string", description: "IP сервера" },
+          username: { type: "string", description: "Логин" },
+          password: { type: "string", description: "Пароль" },
         },
         required: ["path", "content"],
       },
@@ -319,10 +346,17 @@ export const TOOLS = [
   {
     type: "function" as const,
     function: {
-      name: "server_status",
+      name: "ssh_status",
       description:
-        "Получить статус сервера: диск, память, аптайм, Docker контейнеры.",
-      parameters: { type: "object", properties: {} },
+        "Статус VPS пользователя: диск, память, аптайм, Docker. Требует SSH credentials.",
+      parameters: {
+        type: "object",
+        properties: {
+          host: { type: "string", description: "IP сервера" },
+          username: { type: "string", description: "Логин" },
+          password: { type: "string", description: "Пароль" },
+        },
+      },
     },
   },
 ];
@@ -568,27 +602,57 @@ export async function executeTool(
         return JSON.stringify(await agentFetch("/omni", { method: "GET", path: `/api/usage/logs?limit=${limit}` }));
       }
 
-      // ── Server Management ──
-      case "server_exec": {
-        return JSON.stringify(await agentFetch("/exec", {
-          command: args.command as string,
-          timeout: (args.timeout as number) || 15000,
-        }));
+      // ── SSH (user VPS) ──
+      case "ssh_connect": {
+        const creds = { host: args.host as string, username: (args.username as string) || "root", password: args.password as string, port: args.port as number };
+        // Store creds in sessionStorage for reuse
+        sessionStorage.setItem("grouvi_ssh_creds", JSON.stringify(creds));
+        return JSON.stringify(await agentFetch("/ssh/connect", { creds }));
       }
 
-      case "server_file_read": {
-        return JSON.stringify(await agentFetch("/file/read", { path: args.path as string }));
+      case "ssh_exec": {
+        const stored = JSON.parse(sessionStorage.getItem("grouvi_ssh_creds") || "{}");
+        const creds = {
+          host: (args.host as string) || stored.host,
+          username: (args.username as string) || stored.username || "root",
+          password: (args.password as string) || stored.password,
+          port: (args.port as number) || stored.port,
+        };
+        if (!creds.host || !creds.password) return JSON.stringify({ error: "Нет SSH credentials. Сначала используй ssh_connect." });
+        return JSON.stringify(await agentFetch("/ssh/exec", { creds, command: args.command as string }));
       }
 
-      case "server_file_write": {
-        return JSON.stringify(await agentFetch("/file/write", {
-          path: args.path as string,
-          content: args.content as string,
-        }));
+      case "ssh_file_read": {
+        const stored = JSON.parse(sessionStorage.getItem("grouvi_ssh_creds") || "{}");
+        const creds = {
+          host: (args.host as string) || stored.host,
+          username: (args.username as string) || stored.username || "root",
+          password: (args.password as string) || stored.password,
+        };
+        if (!creds.host || !creds.password) return JSON.stringify({ error: "Нет SSH credentials." });
+        return JSON.stringify(await agentFetch("/ssh/file/read", { creds, path: args.path as string }));
       }
 
-      case "server_status": {
-        return JSON.stringify(await agentFetch("/status", {}));
+      case "ssh_file_write": {
+        const stored = JSON.parse(sessionStorage.getItem("grouvi_ssh_creds") || "{}");
+        const creds = {
+          host: (args.host as string) || stored.host,
+          username: (args.username as string) || stored.username || "root",
+          password: (args.password as string) || stored.password,
+        };
+        if (!creds.host || !creds.password) return JSON.stringify({ error: "Нет SSH credentials." });
+        return JSON.stringify(await agentFetch("/ssh/file/write", { creds, path: args.path as string, content: args.content as string }));
+      }
+
+      case "ssh_status": {
+        const stored = JSON.parse(sessionStorage.getItem("grouvi_ssh_creds") || "{}");
+        const creds = {
+          host: (args.host as string) || stored.host,
+          username: (args.username as string) || stored.username || "root",
+          password: (args.password as string) || stored.password,
+        };
+        if (!creds.host || !creds.password) return JSON.stringify({ error: "Нет SSH credentials." });
+        return JSON.stringify(await agentFetch("/ssh/status", { creds }));
       }
 
       default:
