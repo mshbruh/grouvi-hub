@@ -2,7 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── React Grid Layout ── */
+/* ── Grouvi Unified Theme ── */
+:root {
+  --g-bg: #0f1117;
+  --g-bg2: #161922;
+  --g-border: rgba(255, 255, 255, 0.06);
+  --g-border2: rgba(255, 255, 255, 0.1);
+  --g-text: #f0ebe3;
+  --g-text2: #b5b0a8;
+  --g-text3: #6b6860;
+  --g-accent: #4ade80;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--g-bg);
+  color: var(--g-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* ── React Grid Layout (Desktop mode) ── */
 .react-grid-layout {
   position: relative;
   transition: height 200ms ease;
@@ -25,8 +57,8 @@
   will-change: transform;
 }
 .react-grid-placeholder {
-  background: rgba(244, 237, 228, 0.06);
-  border: 1.5px dashed rgba(244, 237, 228, 0.15);
+  background: rgba(74, 222, 128, 0.06);
+  border: 1.5px dashed rgba(74, 222, 128, 0.2);
   border-radius: 10px;
   opacity: 1;
   transition-duration: 100ms;
@@ -48,170 +80,88 @@
   bottom: 5px;
   width: 8px;
   height: 8px;
-  border-right: 2px solid rgba(244, 237, 228, 0.2);
-  border-bottom: 2px solid rgba(244, 237, 228, 0.2);
+  border-right: 2px solid rgba(74, 222, 128, 0.25);
+  border-bottom: 2px solid rgba(74, 222, 128, 0.25);
   border-radius: 0 0 2px 0;
   transition: border-color 0.15s;
 }
 .react-grid-item:hover > .react-resizable-handle::after {
-  border-color: rgba(244, 237, 228, 0.45);
+  border-color: rgba(74, 222, 128, 0.5);
 }
 
 /* ── Desktop Background ── */
 .desktop-bg {
-  background: #111111;
+  background: #0f1117;
   min-height: 100vh;
 }
 
-/* ── Window Appear Animation (Sticky Notes cascade) ── */
+/* ── Window animations ── */
 @keyframes windowPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.75) translateY(30px);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.03) translateY(-4px);
-  }
-  80% {
-    transform: scale(0.98) translateY(2px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  0% { opacity: 0; transform: scale(0.75) translateY(30px); }
+  60% { opacity: 1; transform: scale(1.03) translateY(-4px); }
+  80% { transform: scale(0.98) translateY(2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
-
-.window-appear {
-  animation: windowPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-/* ── Window close ── */
 @keyframes windowClose {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.8) translateY(15px);
-  }
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.85) translateY(20px); }
 }
+.window-appear { animation: windowPop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.window-close { animation: windowClose 0.25s ease-in both; pointer-events: none; }
 
-.window-close {
-  animation: windowClose 0.25s ease-in forwards;
-  pointer-events: none;
-}
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgba(244, 237, 228, 0.12);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(244, 237, 228, 0.25); }
-
-/* ── SVG Icon system (matches temp.grouvi.online) ── */
-.ic svg,
-.ic-sm svg,
-.ic-lg svg,
-.ic-xl svg {
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.ic svg {
-  width: 18px;
-  height: 18px;
-}
-.ic-sm svg {
-  width: 15px;
-  height: 15px;
-}
-.ic-lg svg {
-  width: 22px;
-  height: 22px;
-}
-.ic-xl svg {
-  width: 40px;
-  height: 40px;
-  stroke-width: 1.4;
-}
-
-/* ── Buttons (matches temp.grouvi.online) ── */
+/* ── Primary button ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  background: #F4EDE4;
-  border: 1.5px solid #F4EDE4;
-  border-radius: 8px;
-  color: #111111;
+  gap: 6px;
+  padding: 8px 18px;
   font-size: 13px;
   font-weight: 600;
+  color: #0f1117;
+  background: #4ade80;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: 0.15s ease;
-  font-family: inherit;
+  transition: all 0.15s;
 }
-.btn-primary svg {
-  stroke: #111111;
-}
-.btn-primary:hover { background: #e8e1d8; border-color: #e8e1d8; }
-.btn-primary:active { background: #d9d2c9; border-color: #d9d2c9; }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary:hover { background: #22c55e; }
 
-.btn-icon {
-  padding: 6px;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  color: #666;
-  cursor: pointer;
-  transition: 0.12s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-icon:hover {
-  color: #e5e5e5;
-  background: rgba(255, 255, 255, 0.05);
-  border-color: #222;
-}
-.btn-icon:active {
-  background: rgba(255, 255, 255, 0.1);
+/* ── Icon sizes ── */
+.ic-sm { display: inline-flex; width: 14px; height: 14px; }
+.ic-sm svg { width: 100%; height: 100%; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ic-lg { display: inline-flex; width: 28px; height: 28px; }
+.ic-lg svg { width: 100%; height: 100%; stroke-width: 1.5; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ic-xl { display: inline-flex; width: 48px; height: 48px; }
+.ic-xl svg { width: 100%; height: 100%; stroke-width: 1.5; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── Empty state hint animation ── */
+.empty-hint { animation: float 3s ease-in-out infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-/* ── Module selector hover ── */
-.module-card {
-  transition: all 0.2s ease;
+/* ── Office-specific animations ── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.module-card:hover {
-  background: rgba(244, 237, 228, 0.06);
-  border-color: rgba(244, 237, 228, 0.15);
-  transform: translateY(-1px);
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+  50% { box-shadow: 0 0 12px 2px rgba(74, 222, 128, 0.15); }
+}
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-scale-in { animation: scale-in 0.2s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
-/* ── Empty desktop pulse ── */
-@keyframes gentlePulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.8; }
-}
-.empty-hint {
-  animation: gentlePulse 3s ease-in-out infinite;
-}
-
-/* ── Mail body sanitization ── */
-.mail-body img { max-width: 100%; height: auto; border-radius: 4px; }
-.mail-body a { color: #3b82f6; text-decoration: underline; }
-.mail-body a:hover { color: #60a5fa; }
-.mail-body table { font-size: 13px; }
-.mail-body * { max-width: 100% !important; }
-
-/* ── Spinner ── */
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* ── Line clamp ── */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
