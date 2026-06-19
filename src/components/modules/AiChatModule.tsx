@@ -120,7 +120,7 @@ async function copyText(text: string) {
 export default function AiChatModule() {
   const [view, setView] = useState<View>("setup");
   const [config, setConfig] = useState<OmniConfig>({
-    endpoint: "http://localhost:20128",
+    endpoint: "",
     apiKey: "",
     model: "auto",
     systemPrompt: "",
@@ -597,7 +597,7 @@ export default function AiChatModule() {
                 localStorage.removeItem(STORAGE_KEY);
                 localStorage.removeItem(SESSIONS_KEY);
                 setConfig({
-                  endpoint: "http://localhost:20128",
+                  endpoint: "",
                   apiKey: "",
                   model: "auto",
                   systemPrompt: "",
