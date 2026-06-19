@@ -310,7 +310,7 @@ export default function DuetKeysModule() {
             </button>
             <button
               onClick={saveKey}
-              className="px-4 py-1.5 rounded-md text-[12px] bg-g-accent text-white hover:bg-g-accent/90 transition font-medium"
+              className="px-4 py-1.5 rounded-md text-[12px] bg-g-accent text-[#111] hover:bg-g-accent/90 transition font-medium"
             >
               Сохранить
             </button>
@@ -350,7 +350,7 @@ export default function DuetKeysModule() {
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[85%] rounded-xl px-3 py-2 text-[12px] ${
                   msg.role === "user"
-                    ? "bg-g-accent text-white"
+                    ? "bg-g-accent text-[#111]"
                     : "bg-g-panel2 text-g-text border border-g-border2"
                 }`}>
                   <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -391,7 +391,7 @@ export default function DuetKeysModule() {
               <button
                 type="submit"
                 disabled={chatLoading || !chatInput.trim()}
-                className="bg-g-accent hover:bg-g-accent/90 disabled:opacity-30 text-white px-3 py-1.5 rounded-lg text-[12px] font-medium transition"
+                className="bg-g-accent hover:bg-g-accent/90 disabled:opacity-30 text-[#111] px-3 py-1.5 rounded-lg text-[12px] font-medium transition"
               >
                 ➤
               </button>
