@@ -11,6 +11,7 @@ import AiChatModule from "./modules/AiChatModule";
 import CardModule from "./modules/CardModule";
 import NotesModule from "./modules/NotesModule";
 import AgentModule from "./modules/AgentModule";
+import DuetKeysModule from "./modules/DuetKeysModule";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -20,6 +21,7 @@ const MODULE_MAP: Record<string, React.FC> = {
   "cards": CardModule,
   "notes": NotesModule,
   "agent": AgentModule,
+  "duet-keys": DuetKeysModule,
 };
 
 interface WindowState {

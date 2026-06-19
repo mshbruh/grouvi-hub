@@ -42,4 +42,11 @@ export const MODULE_REGISTRY: ModuleDef[] = [
     category: "ai",
     component: "agent",
   },
+  {
+    id: "duet-keys",
+    title: "Duet Keys",
+    description: "Управление API-ключами Duet, баланс, авто-свич, тест-чат",
+    category: "tools",
+    component: "duet-keys",
+  },
 ];
