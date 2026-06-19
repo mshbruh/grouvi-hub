@@ -4,14 +4,14 @@
 
 /* ── Grouvi Unified Theme ── */
 :root {
-  --g-bg: #0f1117;
-  --g-bg2: #161922;
-  --g-border: rgba(255, 255, 255, 0.06);
-  --g-border2: rgba(255, 255, 255, 0.1);
-  --g-text: #f0ebe3;
-  --g-text2: #b5b0a8;
-  --g-text3: #6b6860;
-  --g-accent: #4ade80;
+  --g-bg: #111111;
+  --g-bg2: #161616;
+  --g-border: #222222;
+  --g-border2: #2a2a2a;
+  --g-text: #e5e5e5;
+  --g-text2: #999999;
+  --g-text3: #666666;
+  --g-accent: #F4EDE4;
 }
 
 * {
@@ -57,8 +57,8 @@ html, body, #root {
   will-change: transform;
 }
 .react-grid-placeholder {
-  background: rgba(74, 222, 128, 0.06);
-  border: 1.5px dashed rgba(74, 222, 128, 0.2);
+  background: rgba(244, 237, 228, 0.06);
+  border: 1.5px dashed rgba(244, 237, 228, 0.2);
   border-radius: 10px;
   opacity: 1;
   transition-duration: 100ms;
@@ -80,18 +80,18 @@ html, body, #root {
   bottom: 5px;
   width: 8px;
   height: 8px;
-  border-right: 2px solid rgba(74, 222, 128, 0.25);
-  border-bottom: 2px solid rgba(74, 222, 128, 0.25);
+  border-right: 2px solid rgba(244, 237, 228, 0.25);
+  border-bottom: 2px solid rgba(244, 237, 228, 0.25);
   border-radius: 0 0 2px 0;
   transition: border-color 0.15s;
 }
 .react-grid-item:hover > .react-resizable-handle::after {
-  border-color: rgba(74, 222, 128, 0.5);
+  border-color: rgba(244, 237, 228, 0.5);
 }
 
 /* ── Desktop Background ── */
 .desktop-bg {
-  background: #0f1117;
+  background: #111111;
   min-height: 100vh;
 }
 
@@ -117,14 +117,14 @@ html, body, #root {
   padding: 8px 18px;
   font-size: 13px;
   font-weight: 600;
-  color: #0f1117;
-  background: #4ade80;
+  color: #111111;
+  background: #F4EDE4;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   transition: all 0.15s;
 }
-.btn-primary:hover { background: #22c55e; }
+.btn-primary:hover { background: #e8e1d8; }
 
 /* ── Icon sizes ── */
 .ic-sm { display: inline-flex; width: 14px; height: 14px; }
@@ -151,8 +151,8 @@ html, body, #root {
   to { opacity: 1; transform: scale(1); }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
-  50% { box-shadow: 0 0 12px 2px rgba(74, 222, 128, 0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 237, 228, 0); }
+  50% { box-shadow: 0 0 12px 2px rgba(244, 237, 228, 0.15); }
 }
 .animate-fade-in { animation: fade-in 0.3s ease-out; }
 .animate-scale-in { animation: scale-in 0.2s ease-out; }
